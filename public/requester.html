@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>JUSTIS</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="requester.js"></script>
+</head>
+<body>
+    <h1>J.U.S.T.I.S</h1>
+    <h1>Pré-plainte</h1>
+
+    <h2>Dans tous les cas d'urgence, appelez immédiatement par téléphone le 17 ou le 112.</h2>
+
+    <h2>Identité</h2>
+
+    <div class="container">
+        <h3>Numéro de téléphone</h3>
+        <input type="text" id="phone">
+    </div>
+
+
+    <div class="container">
+        <h3>Nom</h3>
+        <input type="text" id="name">
+    </div>
+
+    <h2>Les faits</h2>
+
+    <div class="container">
+        <h3>Décrivez le motif de votre plainte</h3>
+        <textarea id="motive" rows="1" cols="80">
+        </textarea>
+    </div>
+
+    <div class="container">
+        <h3>Décrivez les faits et comment vous en avez pris connaissance.</h3>
+        <textarea id="facts" rows="5" cols="80">
+        </textarea>
+    </div>
+
+    <h2>Préjudice</h2>
+
+    <div class="container">
+        <h3>Décrivez le préjudice subi.</h3>
+        <textarea id="damage" rows="5" cols="80">
+        </textarea>
+    </div>
+
+    <div class="container">
+        <p>
+            <input type="text" name="test">
+        </p>
+        <p>
+            <a href="#" id="btn" class="btn btn-primary">Démarrer</a>
+        </p>
+    </div>
+    <div class="container">
+        <button id='btnGiveCommand'>Give Command!</button>
+        <br><br>
+        <span id='message'></span>
+        <br><br>
+
+        <input id='chkSteve' type="checkbox"> Steve Rogers
+        <br>
+        <input id='chkTony' type="checkbox"> Tony Stark
+        <br>
+        <input id='chkBruce' type="checkbox"> Bruce Banner
+        <br>
+        <input id='chkNick' type="checkbox"> Nick Fury
+    </div>
+    <script>
+        var message = document.querySelector('#message');
+
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+
+        var grammar = '#JSGF V1.0;'
+
+        var recognition = new SpeechRecognition();
+        var speechRecognitionList = new SpeechGrammarList();
+        speechRecognitionList.addFromString(grammar, 1);
+        recognition.grammars = speechRecognitionList;
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+
+        recognition.onresult = function(event) {
+            var last = event.results.length - 1;
+            var command = event.results[last][0].transcript;
+            message.textContent = 'Voice Input: ' + command + '.';
+
+            if(command.toLowerCase() === 'select steve'){
+                document.querySelector('#chkSteve').checked = true;
+            }
+            else if (command.toLowerCase() === 'select tony'){
+                document.querySelector('#chkTony').checked = true;
+            }
+            else if (command.toLowerCase() === 'select bruce'){
+                document.querySelector('#chkBruce').checked = true;
+            }
+            else if (command.toLowerCase() === 'select nick'){
+                document.querySelector('#chkNick').checked = true;
+            }
+        };
+
+        recognition.onspeechend = function() {
+            recognition.stop();
+        };
+
+        recognition.onerror = function(event) {
+            message.textContent = 'Error occurred in recognition: ' + event.error;
+        }
+
+        document.querySelector('#btnGiveCommand').addEventListener('click', function(){
+            recognition.start();
+
+        });
+
+
+    </script>
+
+    <div class="container">
+        <div class="texts">
+        </div>
+    </div>
+</body>
+</html>
