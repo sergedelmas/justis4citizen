@@ -8,7 +8,8 @@ recognition.interimResults = true;
 let p = document.createElement('p');
 
 recognition.addEventListener('result', (e)=>{
-  texts.appendChild(p);
+  //texts.appendChild(p);
+  texts.insertBefore(p, texts.firstChild);
   const text = Array.from(e.results)
     .map(result => result[0])
     .map(result => result.transcript)

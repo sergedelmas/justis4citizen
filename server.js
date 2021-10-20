@@ -1,9 +1,13 @@
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8443;
 
-const http = require('http');
+const https = require('https');
+const fs = require('fs');
 const express = require('express');
 const app = express();
 
+const privateKey  = fs.readFileSync('sslcert/key.pem', 'utf8');
+const certificate = fs.readFileSync('sslcert/cert.pem', 'utf8');
+const credentials = {key: privateKey, cert: certificate};
 
 app.use(express.static('public'))
 
@@ -19,6 +23,10 @@ app.get('/bot', (req,res)=>{
     res.sendFile('./public/index.html', { root: __dirname });
 })
 
-const server = http.createServer(app);
+app.get('/bot2', (req,res)=>{
+    res.sendFile('./public/webspeechdemo.html', { root: __dirname });
+})
 
-server.listen(port, ()=>console.log('HTTP server listening on port '+port));
+const server = https.createServer(credentials, app);
+
+server.listen(port, ()=>console.log('HTTPS server listening on port '+port));
