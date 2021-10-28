@@ -27,6 +27,10 @@ app.get('/bot2', (req,res)=>{
     res.sendFile('./public/webspeechdemo.html', { root: __dirname });
 })
 
+app.get('/justis', (req,res)=>{
+    res.sendFile('./public/justis.html', { root: __dirname });
+})
+
 const server = https.createServer(credentials, app);
 
 server.listen(port, ()=>console.log('HTTPS server listening on port '+port));

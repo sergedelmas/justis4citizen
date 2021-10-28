@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Audio</title>
+    <style type="text/css">
+        .audio{
+          width: 400px;
+          height: 600px;
+          border-radius: 20px;
+          padding: 20px;
+          border: 2px solid #757575;
+          margin: 50px auto;
+        }
+        .audio audio {
+          outline: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="audio" id="audio"></div>
+    <script type="text/javascript">
+        var device = navigator.mediaDevices.getUserMedia({audio: true});
+        var items = [];
+        device.then( stream => {
+            var recorder = new MediaRecorder(stream);
+            recorder.ondataavailable = e=> {
+                items.push(e.data);
+                if (recorder.state == 'inactive') {
+                    var blob = new Blob(items, {type: 'audio/webm'});
+                    var audio = document.getElementById('audio');
+                    var mainaudio = document.createElement('audio');
+                    mainaudio.setAttribute('controls','controls');
+                    audio.appendChild(mainaudio);
+                    mainaudio.innerHTML = '<source src="'+URL.createObjectURL(blob)+'" type="video/webm"/>';
+
+                }
+            }
+            recorder.start(100);
+            setTimeout(()=>{
+                recorder.stop();
+            },5000);
+        })
+    </script>
+</body>
+</html>

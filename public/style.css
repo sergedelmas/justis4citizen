@@ -12,7 +12,7 @@ section {
   width: 100%;
   display: flex;
   align-items: flex-start;
-  background-color: rgb(37, 37, 37);
+  background-color: rgb(255, 255, 255);
   flex-direction: column;
   padding: 50px 0;
 }
@@ -34,8 +34,10 @@ section p {
   max-width: 500px;
   margin: 0 auto;
   justify-content: center;
+  max-height: 500px;
+  overflow-y: auto;
 }
-.texts p {
+.texts textarea {
   color: black;
   text-align: left;
   width: 100%;
@@ -44,6 +46,12 @@ section p {
   border-radius: 8px;
   margin-bottom: 10px;
 }
-.texts p.replay {
+.texts textarea.reply {
   text-align: right;
+}
+
+.bottom {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
 }

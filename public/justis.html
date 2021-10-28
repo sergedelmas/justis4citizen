@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>JUSTIS</title>
+    <link rel="stylesheet" href="justis.css">
+</head>
+<body>
+
+<header class="page-header">
+    <h1>J.U.S.T.I.S</h1>
+    <h1>Assistant plainte</h1>
+
+    <h2>Dans tous les cas d'urgence, appelez immédiatement par téléphone le 17 ou le 112.</h2>
+</header>
+
+<div class="dialog">
+    <div class="records">
+    </div>
+    <div class="inputs">
+        <div id="info">
+            <p id="info_start">Cliquez sur l'icône du microphone et commencez à parler</p>
+            <p id="info_speak_now">Parlez à présent</p>
+            <p id="info_allow">Cliquez sur le bouton d'autorisation ci-dessus pour utiliser votre microphone</p>
+            <p id="info_denied">La permission d'utiliser le microphone a été refusée.</p>
+            <p id="info_blocked">La permission d'utiliser le microphone est bloquée. Pour modifier,
+                allez à chrome://settings/contentExceptions#media-stream</p>
+            <p id="info_upgrade">Les API de reconnaissance vocale ne sont pas supportées sur ce navifateur.
+                Mettez à jour <a href="//www.google.com/chrome">Chrome</a>
+                vers les versions 25 ou ultérieures.</p>
+        </div>
+        <div class="commands">
+            <button id="start_button" onclick="startButton(event)">
+                <img id="start_img" class="command" width="50px" src="mic.gif" alt="Start">
+            </button>
+            <button id="submit_button" onclick="submitButton(event)">
+                <img id="submit_img" class="command" src="validate.png" alt="Submit">
+            </button>
+            <button id="erase_button" onclick="eraseButton(event)">
+                <img id="erase_img" class="command" src="erase.png" alt="Erase">
+            </button>
+        </div>
+
+        <div id="results" style="background-color=blue;">
+            <textarea style="width:100%;" id="transcript" class="final"></textarea>
+        </div>
+        <div id="div_language">
+            <select id="select_language" class="lang" onchange="updateCountry()"></select>
+            <select id="select_dialect" class="lang"></select>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script src="justis.js"></script>
+
+</html>
